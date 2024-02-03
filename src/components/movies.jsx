@@ -6,7 +6,8 @@ import MoviesTable from "./moviesTable";
 import Pagination from "./common/pagination";
 import Filter from "./common/filter";
 import _ from "lodash";
-
+import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 class Movies extends Component {
   state = {
     movies: [],
@@ -72,7 +73,7 @@ class Movies extends Component {
 
     const { totalCount, data: movies } = this.getPagedData();
     return (
-      <div className="row">
+      <div className="row" style={{ marginTop: 20 }}>
         <div className="col-3">
           <Filter
             selectedGenre={selectedGenre}
@@ -81,6 +82,13 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
+          <Link
+            className="btn btn-primary"
+            to="/movies/new"
+            style={{ marginBottom: 20 }}
+          >
+            New Movie
+          </Link>
           <p>showing {totalCount} movies in the database</p>
           {allMovies.length === 0 ? (
             <p>No movies available.</p>
