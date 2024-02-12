@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import logger from "./logService";
 
-const httpService = {
+const http = {
   get: axios.get,
   post: axios.post,
   put: axios.put,
@@ -20,4 +20,4 @@ axios.interceptors.response.use(null, (error) => {
   return Promise.reject(error);
 });
 
-export default httpService;
+export default http;
