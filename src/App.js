@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Movies from "./components/movies";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
@@ -10,6 +10,7 @@ import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 
 const App = () => {
+  const navigate = useNavigate();
   return (
     <>
       <NavBar />
@@ -17,7 +18,10 @@ const App = () => {
         <Routes>
           <Route path="/loginForm" element={<LoginForm />} />
           <Route path="/registerForm" element={<RegisterForm />} />
-          <Route path="/movies/:id" element={<MovieForm />} />
+          <Route
+            path="/movies/:id"
+            element={<MovieForm onNavigate={navigate} />}
+          />
           <Route path="/movies" element={<Movies />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/rentals" element={<Rentals />} />

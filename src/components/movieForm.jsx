@@ -5,8 +5,6 @@ import Form from "./common/form";
 import { getGenres } from "../services/fakeGenreService";
 import { saveMovie, getMovie } from "../services/fakeMovieService";
 import { get } from "lodash";
-import { Navigate } from "react-router-dom";
-// import { Navigate, useNavigate } from "react-router-dom";
 
 class MovieForm extends Form {
   state = {
@@ -26,17 +24,18 @@ class MovieForm extends Form {
       .label("Number in Stock"),
     dailyRentalRate: Joi.number().required().min(0).max(10).label("Rate"),
   };
+
   componentDidMount() {
     const genres = getGenres();
     this.setState({ genres });
 
     const movieId = get(this.props, "match.params.id");
     if (movieId === "new") return;
-    console.log("Movie ID: ", movieId);
 
     const movie = getMovie(movieId);
     if (!movie) {
-      return <Navigate to="/not-found" />;
+      this.props.onNavigate("/not-found");
+      return;
     }
 
     this.setState({ data: this.mapToViewModel(movie) });
@@ -44,17 +43,17 @@ class MovieForm extends Form {
 
   doSubmit = () => {
     saveMovie(this.state.data);
-    this.props.history.push("/movies");
+    this.props.onNavigate("/movies");
     console.log("Form submitted");
   };
 
   mapToViewModel(movie) {
     return {
-      _id: movie._id || "",
-      title: movie.title || "",
-      genreId: movie.genre._id || "",
-      numberInStock: movie.numberInStock || 0,
-      dailyRentalRate: movie.dailyRentalRate || 0,
+      _id: movie._id,
+      title: movie.title,
+      genreId: movie.genre._id,
+      numberInStock: movie.numberInStock,
+      dailyRentalRate: movie.dailyRentalRate,
     };
   }
 

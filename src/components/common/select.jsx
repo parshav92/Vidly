@@ -1,9 +1,6 @@
 import React from "react";
 
-const Select = (name, label, options, error, ...rest) => {
-  if (options === undefined) {
-    return "Options are required";
-  }
+const Select = ({ name, label, options, error, ...rest }) => {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
