@@ -33,17 +33,14 @@ class MovieForm extends Form {
     if (movieId === "new") return;
 
     const movie = getMovie(movieId);
-    if (!movie) {
-      this.props.onNavigate("/not-found");
-      return;
-    }
+    if (!movie) return this.props.history.replace("/not-found");
 
     this.setState({ data: this.mapToViewModel(movie) });
   }
 
   doSubmit = () => {
     saveMovie(this.state.data);
-    this.props.onNavigate("/movies");
+    this.props.history.push("/movies");
     console.log("Form submitted");
   };
 
