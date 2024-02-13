@@ -4,7 +4,6 @@ import "./loginForm.css";
 import Form from "./common/form";
 import { getGenres } from "../services/genreService";
 import { saveMovie, getMovie } from "../services/movieService";
-import { get } from "lodash";
 
 class MovieForm extends Form {
   state = {
@@ -45,10 +44,9 @@ class MovieForm extends Form {
     await this.populateMovie();
   }
 
-  doSubmit = () => {
-    saveMovie(this.state.data);
+  doSubmit = async () => {
+    await saveMovie(this.state.data);
     this.props.history.push("/movies");
-    console.log("Form submitted");
   };
 
   mapToViewModel(movie) {

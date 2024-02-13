@@ -15,4 +15,5 @@ export function saveMovie(movie) {
     delete body._id;
     return http.put(apiUrl + `/movies/${movie._id}`, body);
   }
+  return http.post(apiUrl + "/movies", movie);
 }
