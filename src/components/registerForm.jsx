@@ -3,6 +3,7 @@ import "./loginForm.css";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { Link } from "react-router-dom";
+import * as userService from "../services/userService";
 
 class RegisterForm extends Form {
   state = {
@@ -14,9 +15,16 @@ class RegisterForm extends Form {
     password: Joi.string().min(5).required().label("Password"),
     name: Joi.string().required().label("Name"),
   };
-  doSubmit = () => {
-    //call server
-    console.log("Form submitted");
+  doSubmit = async () => {
+    try {
+      await userService.register(this.state.data);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.data;
+        this.setState({ errors });
+      }
+    }
   };
   render() {
     return (
