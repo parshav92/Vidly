@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
   const location = useLocation();
 
   const navStyle = {
@@ -57,22 +57,43 @@ const NavBar = () => {
         >
           Rentals
         </Link>
-        <Link
-          to="/loginForm"
-          style={
-            location.pathname === "/loginForm" ? linkStyleActive : linkStyle
-          }
-        >
-          Login
-        </Link>
-        <Link
-          to="/registerForm"
-          style={
-            location.pathname === "/registerForm" ? linkStyleActive : linkStyle
-          }
-        >
-          Register
-        </Link>
+        {user && user.name && (
+          <>
+            <Link
+              to="/profile"
+              style={
+                location.pathname === "/profile" ? linkStyleActive : linkStyle
+              }
+            >
+              {user.name}
+            </Link>
+            <Link to="/logout" style={linkStyle}>
+              Logout
+            </Link>
+          </>
+        )}
+        {!user && (
+          <>
+            <Link
+              to="/loginForm"
+              style={
+                location.pathname === "/loginForm" ? linkStyleActive : linkStyle
+              }
+            >
+              Login
+            </Link>
+            <Link
+              to="/registerForm"
+              style={
+                location.pathname === "/registerForm"
+                  ? linkStyleActive
+                  : linkStyle
+              }
+            >
+              Register
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );
