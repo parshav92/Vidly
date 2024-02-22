@@ -16,6 +16,7 @@ import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import Logout from "./components/logout";
 import auth from "./services/authService";
+import ProtectedRoute from "./components/common/protectedRoute";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
@@ -36,8 +37,11 @@ const App = () => {
             <Route path="/loginForm" component={LoginForm} />
             <Route path="/logout" component={Logout} />
             <Route path="/registerForm" component={RegisterForm} />
-            <Route path="/movies/:id" component={MovieForm} />
-            <Route path="/movies" component={Movies} />
+            <ProtectedRoute path="/movies/:id" component={MovieForm} />
+            <Route
+              path="/movies"
+              render={(props) => <Movies {...props} user={user} />}
+            />
             <Route path="/customers" component={Customers} />
             <Route path="/rentals" component={Rentals} />
             <Route path="/not-found" component={NotFound} />
