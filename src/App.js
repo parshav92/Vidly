@@ -18,6 +18,7 @@ import Logout from "./components/logout";
 import auth from "./services/authService";
 import ProtectedRoute from "./components/common/protectedRoute";
 import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 const App = () => {
   const [user, setUser] = useState(null);
